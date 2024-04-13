@@ -10,6 +10,10 @@ import widthimg from "../images/size-img.png"
 import borderwidthimg from "../images/border-width-img.png"
 import bordercolorimg from "../images/bordercolor-img.png"
 import locationimg from "../images/location-img.png"
+import inserttextimg from "../images/text.png"
+import insertbuttonimg from "../images/play-button.png"
+import insertvideo from "../images/youtube.png"
+import insertinputboximg from "../images/text-box.png"
 function Desgin_page() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
@@ -22,9 +26,18 @@ function Desgin_page() {
   const [opencolorbar , setopencolorbar] = useState(false)
   //for the set color popup
   const [color, setColor] = useState("#aabbcc");
+  const [borderradiusvalue , setborderradiusvalue] = useState("")
+  const [elhieght , setelhieght] = useState(10)
+  const [elwidth , setelwidth] = useState(40)
+  //
+  const [backgroundcoloredit , setbackgroundcoloredit] = useState(false)
   const [coloredit , setcoloredit] = useState(false)
+  const [borderradiuspopup , setborderradiuspopup] = useState(false)
+  const [sizeeditpopup , setsizeeditpopup] = useState(false)
   var all_element = {}
   //
+  const [value1, setValue1] = useState(0);
+  const [value2, setValue2] = useState(0);
 
   const Setcolorpopup = () => {
     return <HexColorPicker color={color} onChange={setColor} />;
@@ -84,6 +97,7 @@ function Desgin_page() {
         el.id === id ? { ...el, color } : el
       );
       setElements(updatedElements);
+      setcoloredit(false)
     }
     console.log(`Changed color for ${selectedElementId}` )
   };
@@ -93,7 +107,27 @@ function Desgin_page() {
         el.id === id ? { ...el, backgroundColor : bgcolor } : el
       );
       setElements(updatedElements);
-      setcoloredit(false)
+      setbackgroundcoloredit(false)
+    }
+    console.log(`Changed color for ${selectedElementId} with the color ${color}`)
+  };
+  const updateborderradius= (id, radius ) => {
+    if (selectedElementId === id) {
+      const updatedElements = elements.map((el) =>
+        el.id === id ? { ...el, borderRadius : radius } : el
+      );
+      setElements(updatedElements);
+      setbackgroundcoloredit(false)
+    }
+    console.log(`Changed color for ${selectedElementId} with the color ${color}`)
+  };
+  const updateelementsize= (id, w , h ) => {
+    if (selectedElementId === id) {
+      const updatedElements = elements.map((el) =>
+        el.id === id ? { ...el, height:`${h}px`,width:`${w}px`} : el
+      );
+      setElements(updatedElements);
+      setsizeeditpopup(false)
     }
     console.log(`Changed color for ${selectedElementId} with the color ${color}`)
   };
@@ -106,10 +140,12 @@ function Desgin_page() {
     position: "absolute",
     top: el.top,
     left: el.left,
+    width:selectedElementId ? el.width : "30px",
+    height:selectedElementId ? el.height : "10px",
     backgroundColor: selectedElementId ? el.backgroundColor : "#c83f49",
     color: el.color,
     padding: selectedElementId ? el.borderRadius : "10px",
-    borderRadius:selectedElementId ? el.borderRadius : "5px",
+    borderRadius:selectedElementId ? el.borderRadius : "5%",
     cursor: "move",
     userSelect: "none", // Disable text selection
   });
@@ -147,11 +183,11 @@ function Desgin_page() {
             <img src={insertimage} alt="Insert Image" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
             <div className="div-edit-class" style={{ fontSize: "12px" }}>Insert Image</div>
           </div>
-          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}onClick={() => {setcoloredit(true)}}>
             <img src={colorimage} alt="Color" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
             <div style={{ fontSize: "12px" }}>Color</div>
           </div>
-          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }} onClick={() => {setcoloredit(true)}}>
+          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }} onClick={() => {setbackgroundcoloredit(true)}}>
             <img src={backgroundcolorimg} alt="Background Color" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
             <div style={{ fontSize: "12px" }}>Background Color</div>
           </div>
@@ -159,8 +195,8 @@ function Desgin_page() {
             <img src={borderstyleimg} alt="Border Style" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
             <div style={{ fontSize: "12px" }}>Border Style</div>
           </div>
-          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
-            <img src={borderradiusimg} alt="Border Radius" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
+          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }} onClick={() => {setborderradiuspopup(true)}}>
+            <img src={borderradiusimg} alt="Border Radius" style={{ width: "30px", height: "30px", marginRight: "5px" }}  />
             <div style={{ fontSize: "12px" }}>Border Radius</div>
           </div>
           <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
@@ -175,7 +211,7 @@ function Desgin_page() {
             <img src={bordercolorimg} alt="Border Color" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
             <div style={{ fontSize: "12px" }}>Border Color</div>
           </div>
-          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+          <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }} onClick={() => {setsizeeditpopup(true)}}>
             <img src={widthimg} alt="Size" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
             <div style={{ fontSize: "12px" }}>Size</div>
           </div>
@@ -183,6 +219,28 @@ function Desgin_page() {
           </div>
           <div>
             <h3>--insert element--</h3>
+            <div id="bug-insert-section">
+        <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }} >
+          <img src={insertimage} alt="Size" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
+          <div style={{ fontSize: "12px" }}>insert image</div>
+        </div>
+        <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+          <img src={inserttextimg} alt="Size" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
+          <div style={{ fontSize: "12px" }}>insert text</div>
+        </div>
+        <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+          <img src={insertbuttonimg} alt="Size" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
+          <div style={{ fontSize: "12px" }}>insert button</div>
+        </div>
+        <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+          <img src={insertvideo} alt="Size" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
+          <div style={{ fontSize: "12px" }}>insert video</div>
+        </div>
+        <div className="div-edit-class" style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+          <img src={insertinputboximg} alt="Size" style={{ width: "30px", height: "30px", marginRight: "5px" }} />
+          <div style={{ fontSize: "12px" }}>insert textbox</div>
+        </div>
+      </div>
           </div>
           <div id="biginsert">
             <button onClick={() => {setpopupname(true)}}>Create button</button>
@@ -200,11 +258,38 @@ function Desgin_page() {
 
         </div>
       )}
-      {coloredit && (
+      {backgroundcoloredit && (
         <div id="coloreditpopup">
           <Setcolorpopup></Setcolorpopup>
           <button id="submit-color" onClick={() => {updatebackgroundcolor(selectedElementId , color)}}>Change color</button>
           
+        </div>
+      )}
+      {coloredit && (
+          <div id="coloreditpopup">
+              <Setcolorpopup id="coloredit"></Setcolorpopup>
+              <button id="submit-color" onClick={() => {updateColor(selectedElementId , color)}}>Change color</button>
+                
+          </div>
+      )}
+        {sizeeditpopup && (
+        <div className="incresementbox">
+          <div className="py-8 space-y-4">
+            Height
+       <div className="flex justify-center items-center space-x-4">
+         <button onClick={() => setValue1(elhieght - 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">-</button>
+         <input type="text" value={value1} className="border-2 border-gray-300 rounded-md px-2" />
+         <button onClick={() => setValue1(elhieght + 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">+</button>
+       </div>
+       Width
+       <div className="flex justify-center items-center space-x-4">
+         <button onClick={() => setValue2(elwidth - 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">-</button>
+         <input type="text" value={value2} className="border-2 border-gray-300 rounded-md px-2" />
+         <button onClick={() => setValue2(elwidth + 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">+</button>
+       </div>
+       <button onClick={() => updateelementsize(selectedElementId, elhieght, elwidth)}>Update Size</button>
+     </div>
+
         </div>
       )}
     </div>

@@ -160,3 +160,9 @@
   border-color:black
   
 }
+
+.incresementbox{
+  position: absolute;
+  margin-left: 50px;
+  margin-top: 10px;
+}
