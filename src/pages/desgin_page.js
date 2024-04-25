@@ -273,19 +273,19 @@ function Desgin_page() {
           </div>
       )}
         {sizeeditpopup && (
-        <div className="incresementbox">
+        <div id="size-incresementbox">
           <div className="py-8 space-y-4">
-            Height
+          Width
        <div className="flex justify-center items-center space-x-4">
-         <button onClick={() => setValue1(elhieght - 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">-</button>
-         <input type="text" value={value1} className="border-2 border-gray-300 rounded-md px-2" />
-         <button onClick={() => setValue1(elhieght + 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">+</button>
+         <button onClick={() => setelhieght(elhieght - 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">-</button>
+         <input type="text" value={elhieght} className="border-2 border-gray-300 rounded-md px-2" />
+         <button onClick={() => setelhieght(elhieght + 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">+</button>
        </div>
-       Width
+       Height
        <div className="flex justify-center items-center space-x-4">
-         <button onClick={() => setValue2(elwidth - 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">-</button>
-         <input type="text" value={value2} className="border-2 border-gray-300 rounded-md px-2" />
-         <button onClick={() => setValue2(elwidth + 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">+</button>
+         <button onClick={() => setelwidth(elwidth - 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">-</button>
+         <input type="text" value={elwidth} className="border-2 border-gray-300 rounded-md px-2" />
+         <button onClick={() => setelwidth(elwidth + 1)} className="px-3 py-1 bg-gray-300 text-white rounded-md">+</button>
        </div>
        <button onClick={() => updateelementsize(selectedElementId, elhieght, elwidth)}>Update Size</button>
      </div>

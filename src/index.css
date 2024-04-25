@@ -161,7 +161,10 @@
   
 }
 
-.incresementbox{
+#size-incresementbox{
+  background-color: rgb(177, 163, 169);
+  padding:10px 10px 10px 10px;
+  border-radius: 15%;
   position: absolute;
   margin-left: 50px;
   margin-top: 10px;
